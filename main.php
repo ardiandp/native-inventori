@@ -75,7 +75,11 @@ $requested_page = isset($_GET['page']) ? sanitize_path($_GET['page']) : 'views/d
 // Daftar halaman yang diizinkan
 $allowed_pages = [
     'views/dashboard.php',
-    'views/produk.php'
+    'views/produk.php',
+    'views/roles.php',
+    'views/users.php',
+    'views/menus.php',
+    'views/permisions.php',
     // Tambahkan halaman lain yang diizinkan di sini
 ];
 

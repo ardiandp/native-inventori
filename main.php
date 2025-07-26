@@ -1,4 +1,59 @@
 <?php
+require 'config/database.php';
+// Include middleware cek login
+require_once 'cek_login.php';
+function checkPermission($role_id, $page) {
+    $conn = new mysqli("localhost", "dev", "terserah", "winkur");
+    
+    // Ambil nama file dari URL
+    $page_name = basename($page, '.php');
+    
+    $query = "SELECT p.can_view 
+              FROM permissions p
+              JOIN menus m ON p.menu_id = m.id
+              WHERE p.role_id = ? AND m.url LIKE ? AND p.can_view = 1
+              LIMIT 1";
+    
+    $stmt = $conn->prepare($query);
+    $search_page = "%{$page_name}%";
+    $stmt->bind_param("is", $role_id, $search_page);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    $conn->close();
+    return $result->num_rows > 0;
+}
+
+// Contoh penggunaan:
+
+
+function buildMenu($role_id) {
+         $conn = new mysqli("localhost", "dev", "terserah", "winkur");
+    
+    $menu = [];
+    $query = "SELECT m.*, p.can_view 
+              FROM menus m
+              JOIN permissions p ON m.id = p.menu_id
+              WHERE p.role_id = ? AND m.is_active = 1 AND p.can_view = 1
+              ORDER BY m.order ASC";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $role_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    while ($row = $result->fetch_assoc()) {
+        if ($row['parent_id'] === null) {
+            $menu[$row['id']] = $row;
+            $menu[$row['id']]['children'] = [];
+        } else {
+            $menu[$row['parent_id']]['children'][] = $row;
+        }
+    }
+    
+    $conn->close();
+    return $menu;
+}
 /**
  * Main template loader dengan routing via URL parameter
  */

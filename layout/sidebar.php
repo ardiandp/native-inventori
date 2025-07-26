@@ -1,37 +1,33 @@
-<!-- Sidebar -->
 <aside class="sidebar">
     <div class="sidebar-container">
         <ul class="sidebar-menu">
-            <li class="menu-header">Main Menu</li>
-            <li class="<?php echo isset($active_menu) && $active_menu == 'dashboard' ? 'active' : ''; ?>">
-                <a href="index.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            </li>
+            <?php 
+            $menu = buildMenu($_SESSION['user_role_id']);
             
-            <li class="menu-header">Management</li>
-            <li class="<?php echo isset($active_menu) && $active_menu == 'users' ? 'active' : ''; ?>">
-                <a href="#"><i class="fas fa-users"></i> Users</a>
-            </li>
-            <li class="<?php echo isset($active_menu) && $active_menu == 'products' ? 'active' : ''; ?>">
-                <a href="#"><i class="fas fa-boxes"></i> Products</a>
-            </li>
-            <li class="<?php echo isset($active_menu) && $active_menu == 'orders' ? 'active' : ''; ?>">
-                <a href="#"><i class="fas fa-shopping-cart"></i> Orders</a>
-            </li>
-            
-            <li class="menu-header">Settings</li>
-            <li class="<?php echo isset($active_menu) && $active_menu == 'settings' ? 'active' : ''; ?>">
-                <a href="#"><i class="fas fa-cog"></i> Settings</a>
-            </li>
-            <li class="menu-header">Main Menu</li>
-            <li class="<?php echo $active_menu == 'dashboard' ? 'active' : ''; ?>">
-                <a href="main.php?page=views/dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            </li>
-            
-            <li class="menu-header">Management</li>
-            <li class="<?php echo $active_menu == 'produk' ? 'active' : ''; ?>">
-                <a href="main.php?page=views/produk.php"><i class="fas fa-boxes"></i> Produk</a>
-            </li>
-            <!-- Tambahkan menu lain sesuai kebutuhan -->
+            foreach ($menu as $item): 
+                if (empty($item['children'])): ?>
+                    <li class="<?php echo $active_menu == basename($item['url'], '.php') ? 'active' : ''; ?>">
+                        <a href="<?php echo $item['url']; ?>">
+                            <?php if ($item['icon']): ?>
+                                <i class="<?php echo $item['icon']; ?>"></i>
+                            <?php endif; ?>
+                            <span><?php echo $item['name']; ?></span>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="menu-header"><?php echo $item['name']; ?></li>
+                    <?php foreach ($item['children'] as $child): ?>
+                        <li class="<?php echo $active_menu == basename($child['url'], '.php') ? 'active' : ''; ?>">
+                            <a href="<?php echo $child['url']; ?>">
+                                <?php if ($child['icon']): ?>
+                                    <i class="<?php echo $child['icon']; ?>"></i>
+                                <?php endif; ?>
+                                <span><?php echo $child['name']; ?></span>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </ul>
     </div>
 </aside>

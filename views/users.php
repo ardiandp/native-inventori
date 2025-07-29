@@ -16,7 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_user'])) {
                  VALUES ('$username', '$password', '$email', '$full_name', $role_id, $is_active, NOW(), NOW())";
         $conn->query($query);
     }
-    header("Location: users.php");
+    //header("Location: users.php");
+    echo "<script>
+        alert('Data berhasil disimpan!');
+        window.location.href = '?page=views/users.php';
+    </script>";
+
     exit();
 }
 

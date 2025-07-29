@@ -37,7 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->execute();
     }
     
-    header("Location: menus.php");
+    //header("Location: menus.php");
+    echo "<script>
+        alert('Data berhasil disimpan!');
+        window.location.href = '?page=views/menus.php';
+    </script>";
     exit();
 }
 
@@ -193,7 +197,7 @@ $menus_result = $conn->query($query);
                                 <a href="menus.php?edit=<?= $menu['id'] ?>" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="menus.php?hapus=<?= $menu['id'] ?>" class="btn btn-sm btn-danger" 
+                                <a href="?page=views/menus_hapus.php&id=<?= $menu['id'] ?>" class="btn btn-sm btn-danger" 
                                    onclick="return confirm('Yakin hapus menu ini?')">
                                     <i class="fas fa-trash"></i>
                                 </a>

@@ -80,6 +80,7 @@ $allowed_pages = [
     'views/users.php',
     'views/menus.php',
     'views/permisions.php',
+    'views/menus_hapus.php',
     // Tambahkan halaman lain yang diizinkan di sini
 ];
 

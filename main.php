@@ -86,6 +86,7 @@ $allowed_pages = [
     'views/request_barang.php',
     'views/user_request_barang.php',
     'views/profile.php',
+    'views/barang_keluar.php',
     // Tambahkan halaman lain yang diizinkan di sini
 ];
 

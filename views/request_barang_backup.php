@@ -31,18 +31,6 @@ if (isset($_GET['update_status'])) {
     if (in_array($new_status, $allowed_status)) {
         $conn->query("UPDATE request_barang SET status = '$new_status' WHERE id = $id");
     }
-    
-    if ($new_status == 'Disetujui') {
-          $id = intval($_GET['id']);
-        // Simpan data ke table barang_keluar
-        $result = $conn->query("SELECT divisi_id, barang_id, jumlah FROM request_barang WHERE id = $id");
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $tanggal_keluar = date('Y-m-d');
-            $creted_at = date('Y-m-d H:i:s');
-            $conn->query("INSERT INTO barang_keluar (divisi_id, barang_id, jumlah, tanggal_keluar, created_at) VALUES ({$row['divisi_id']}, {$row['barang_id']}, {$row['jumlah']}, '$tanggal_keluar', '$creted_at')");
-        }
-    }
      // header("Location: request_barang.php");
     echo "<script>  
         alert('Data berhasil disimpan!');

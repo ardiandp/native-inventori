@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $conn->real_escape_string($_POST['username']);
     $password = $_POST['password'];
 
-    $query = "SELECT u.id, u.username, u.password, u.full_name, u.role_id, r.name as role_name 
+    $query = "SELECT u.id, u.username, u.password, u.full_name,u.divisi_id, u.role_id, r.name as role_name 
               FROM users u
               JOIN roles r ON u.role_id = r.id
               WHERE u.username = ? AND u.is_active = 1 LIMIT 1";
@@ -35,6 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['full_name'] = $user['full_name'];
             $_SESSION['role_id'] = $user['role_id'];
             $_SESSION['role_name'] = $user['role_name'];
+            $_SESSION['divisi_id'] = $user['divisi_id'];
+            
             
             // Redirect ke dashboard
             header("Location: main.php?page=views/dashboard.php");

@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['simpan_permissions']))
     }
     
    // header("Location: permissions.php?role_id=$role_id");
-    echo "<script>window.location.href = '?page=views/permisions.php?role_id=$role_id';</script>";
+    echo "<script>window.location.href = '?page=views/permisions.php&role_id=$role_id';</script>";
     exit();
 }
 

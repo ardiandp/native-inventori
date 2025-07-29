@@ -26,9 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_user'])) {
 }
 
 // Ambil data users
-$query = "SELECT u.id, u.username, u.email, u.full_name, r.name as role_name, u.is_active 
+$query = "SELECT u.id, u.username, u.email, u.full_name, r.name as role_name, u.is_active, d.nama_divisi as divisi_name 
           FROM users u 
           JOIN roles r ON u.role_id = r.id 
+          LEFT JOIN divisi d ON u.divisi_id = d.id 
           ORDER BY u.id DESC";
 $users_result = $conn->query($query);
 
@@ -62,6 +63,7 @@ $roles_result = $conn->query($roles_query);
                             <th>Email</th>
                             <th>Nama Lengkap</th>
                             <th>Role</th>
+                            <th width="10%">Divisi</th>
                             <th>Aktif</th>
                         </tr>
                     </thead>
@@ -73,6 +75,7 @@ $roles_result = $conn->query($roles_query);
                             <td><?php echo htmlspecialchars($user['email']); ?></td>
                             <td><?php echo htmlspecialchars($user['full_name']); ?></td>
                             <td><?php echo htmlspecialchars($user['role_name']); ?></td>
+                             <td><?php echo htmlspecialchars($user['divisi_name']); ?></td>
                             <td><?php echo $user['is_active'] ? 'Ya' : 'Tidak'; ?></td>
                         </tr>
                         <?php endwhile; ?>
@@ -120,6 +123,17 @@ $roles_result = $conn->query($roles_query);
                             <?php endwhile; ?>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="divisi_id">Divisi</label>
+                        <select class="form-control" id="divisi_id" name="divisi_id" required>
+                            <option value="">Pilih Divisi</option>
+                            <?php $divisi_result = $conn->query("SELECT * FROM divisi"); ?>
+                            <?php while ($divisi = $divisi_result->fetch_assoc()): ?>
+                            <option value="<?php echo $divisi['id']; ?>"><?php echo htmlspecialchars($divisi['nama_divisi']); ?></option>
+                            <?php endwhile; ?>
+                        </select>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="is_active">Aktif</label>
                         <select class="form-control" id="is_active" name="is_active" required>

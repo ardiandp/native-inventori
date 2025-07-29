@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['simpan_permissions']))
     }
     
    // header("Location: permissions.php?role_id=$role_id");
-    echo "<script>window.location.href = '?page=views/permissions.php?role_id=$role_id';</script>";
+    echo "<script>window.location.href = '?page=views/permisions.php?role_id=$role_id';</script>";
     exit();
 }
 
@@ -65,8 +65,8 @@ while ($perm = $perms_result->fetch_assoc()) {
                     <div class="col-md-6">
                         <select name="role_id" class="form-control" onchange="this.form.submit()">
                             <?php while ($role = $roles->fetch_assoc()): ?>
-                            <option value="?page=views/permissions.php&role_id=<?= $role['id'] ?>" <?= $role['id'] == $selected_role_id ? 'selected' : '' ?>>
-                                <a href="?page=views/permissions.php&role_id=<?= $role['id'] ?>">
+                            <option value="main.php?page=views/permisions.php&role_id=<?= $role['id'] ?>" <?= $role['id'] == $selected_role_id ? 'selected' : '' ?>>
+                                <a href="main.php?page=views/permisions.php&role_id=<?= $role['id'] ?>">
                                     <?= htmlspecialchars($role['name']) ?>
                                 </a>
                             </option>

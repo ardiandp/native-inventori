@@ -11,9 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_user'])) {
     $role_id = intval($_POST['role_id']);
     $is_active = intval($_POST['is_active']);
 
+    $divisi_id = isset($_POST['divisi_id']) ? intval($_POST['divisi_id']) : null;
+
     if (!empty($username) && !empty($_POST['password'])) {
-        $query = "INSERT INTO users (username, password, email, full_name, role_id, is_active, created_at, updated_at) 
-                 VALUES ('$username', '$password', '$email', '$full_name', $role_id, $is_active, NOW(), NOW())";
+        $query = "INSERT INTO users (username, password, email, full_name, role_id,divisi_id ,is_active, created_at, updated_at) 
+                 VALUES ('$username', '$password', '$email', '$full_name', $role_id,$divisi_id, $is_active, NOW(), NOW())";
         $conn->query($query);
     }
     //header("Location: users.php");
@@ -65,6 +67,7 @@ $roles_result = $conn->query($roles_query);
                             <th>Role</th>
                             <th width="10%">Divisi</th>
                             <th>Aktif</th>
+                            <th width="8%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,6 +80,10 @@ $roles_result = $conn->query($roles_query);
                             <td><?php echo htmlspecialchars($user['role_name']); ?></td>
                              <td><?php echo htmlspecialchars($user['divisi_name']); ?></td>
                             <td><?php echo $user['is_active'] ? 'Ya' : 'Tidak'; ?></td>
+                            <td>
+                                <a href="edit_user.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+                                <a href="views/hapus_user.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                            </td>
                         </tr>
                         <?php endwhile; ?>
                     </tbody>

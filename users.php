@@ -81,8 +81,8 @@ $roles_result = $conn->query($roles_query);
                              <td><?php echo htmlspecialchars($user['divisi_name']); ?></td>
                             <td><?php echo $user['is_active'] ? 'Ya' : 'Tidak'; ?></td>
                             <td>
-                                <a href="edit_user.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
-                                <a href="views/hapus_user.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                <a href="?page=edit_user&id=<?= $user['id'] ?>" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+                                <a href="?page=hapus_user&=<?= $user['id'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php endwhile; ?>

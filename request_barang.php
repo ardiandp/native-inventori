@@ -112,8 +112,13 @@ $barang = $conn->query("SELECT * FROM barang ORDER BY nama_barang");
             </form>
 
             <!-- Tabel Daftar Request -->
+            <div class="mb-3">
+                <button id="exportPdfBtn" class="btn btn-danger">
+                    <i class="fas fa-file-pdf"></i> Export PDF
+                </button>
+            </div>
             <div class="table-responsive">
-                <table class="table table-bordered" width="100%" cellspacing="0">
+                <table id="requestTable" class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th width="5%">ID</th>
@@ -159,6 +164,26 @@ $barang = $conn->query("SELECT * FROM barang ORDER BY nama_barang");
                     </tbody>
                 </table>
             </div>
+            <!-- jsPDF & html2canvas CDN -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+            <script>
+            document.getElementById('exportPdfBtn').addEventListener('click', function () {
+                const table = document.getElementById('requestTable');
+                html2canvas(table, {scale:2}).then(function(canvas) {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new window.jspdf.jsPDF('l', 'mm', 'a4');
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    const imgProps = pdf.getImageProperties(imgData);
+                    const pdfWidth = pageWidth - 20;
+                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                    pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth, pdfHeight);
+                    pdf.save('request-barang.pdf');
+                });
+            });
+            </script>
         </div>
     </div>
 </div>

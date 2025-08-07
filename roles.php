@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_role'])) {
         $query = "INSERT INTO roles (name, description) VALUES ('$name', '$description')";
         $conn->query($query);
     }
-    echo "<script>alert('Role berhasil ditambahkan!'); window.location.href = 'main.php?page=views/roles.php';</script>";
+    echo "<script>alert('Role berhasil ditambahkan!'); window.location.href = 'main.php?page=roles.php';</script>";
     exit();
 }
 
@@ -64,8 +64,8 @@ $result = $conn->query($query);
                             <td><?php echo htmlspecialchars($row['name']); ?></td>
                             <td><?php echo htmlspecialchars($row['description']); ?></td>
                             <td>
-                                <a href="edit_role.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
-                                <a href="views/hapus_role.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                <a href="?page=edit_role&id=<?= $row['id'] ?>" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+                                <a href="?page=hapus_role&id=<?= $row['id'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php endwhile; ?>

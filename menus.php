@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //header("Location: menus.php");
     echo "<script>
         alert('Data berhasil disimpan!');
-        window.location.href = '?page=views/menus.php';
+        window.location.href = '?page=menus';
     </script>";
     exit();
 }
@@ -49,7 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if (isset($_GET['hapus'])) {
     $id = intval($_GET['hapus']);
     $conn->query("DELETE FROM menus WHERE id = $id");
-    header("Location: menus.php");
+    echo "<script>
+        alert('Data berhasil disimpan!');
+        window.location.href = '?page=menus';
+    </script>";
     exit();
 }
 
@@ -68,13 +71,13 @@ $menus_result = $conn->query($query);
 ?>
 
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Manajemen Menu</h1>
     </div>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Menu</h6>
+        <div class="card-header py-3 bg-primary text-white">
+            <h6 class="m-0 font-weight-bold">Daftar Menu</h6>
         </div>
         <div class="card-body">
             <!-- Form Tambah/Edit Menu -->
@@ -84,7 +87,7 @@ $menus_result = $conn->query($query);
                     $edit_data = $conn->query("SELECT * FROM menus WHERE id = $edit_id")->fetch_assoc();
                 ?>
                     <input type="hidden" name="id" value="<?= $edit_data['id'] ?>">
-                    <div class="form-row">
+                    <div class="row g-2"></div></div>
                         <div class="col-md-3">
                             <select name="parent_id" class="form-control">
                                 <option value="">-- Menu Utama --</option>

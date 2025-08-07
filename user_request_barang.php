@@ -110,7 +110,14 @@ $barang = $conn->query("SELECT * FROM barang ORDER BY nama_barang");
 
             <!-- Tabel Daftar Request -->
                                 
-<table class="table table-bordered" width="100%" cellspacing="0">
+<!-- Tombol Export PDF -->
+<div class="mb-3">
+    <button id="exportPDF" class="btn btn-danger">
+        <i class="fas fa-file-pdf"></i> Export PDF
+    </button>
+</div>
+
+<table id="requestTable" class="table table-bordered" width="100%" cellspacing="0">
     <thead>
         <tr>
             <th width="5%">ID</th>
@@ -123,7 +130,6 @@ $barang = $conn->query("SELECT * FROM barang ORDER BY nama_barang");
         </tr>
     </thead>
     <tbody>
-       
     <?php  $request_barang = $conn->query("SELECT rb.*, d.nama_divisi, b.nama_barang, b.satuan 
           FROM request_barang rb
           JOIN divisi d ON rb.divisi_id = d.id
@@ -145,13 +151,33 @@ $barang = $conn->query("SELECT * FROM barang ORDER BY nama_barang");
                 </span>
             </td>
             <td><?= date('d/m/Y H:i', strtotime($row['created_at'])) ?></td>
-            <td><a href="hapus_request.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a></td>
+            <td><a href="?page=hapus_request&id=<?= $row['id'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a></td>
         </tr>
       <?php endwhile; ?>
-      
     </tbody>
 </table>
 
+<!-- CDN jsPDF & html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- CDN Font Awesome for PDF icon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script>
+document.getElementById('exportPDF').addEventListener('click', function () {
+    const table = document.getElementById('requestTable');
+    html2canvas(table).then(function(canvas) {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new window.jspdf.jsPDF('l', 'pt', 'a4');
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const imgWidth = pageWidth - 40;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        pdf.addImage(imgData, 'PNG', 20, 20, imgWidth, imgHeight);
+        pdf.save('request-barang.pdf');
+    });
+});
+</script>
 
         </div>
     </div>

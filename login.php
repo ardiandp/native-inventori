@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             
             // Redirect ke dashboard
-            header("Location: main.php?page=views/dashboard.php");
+            header("Location: main.php?page=dashboard");
             exit();
         } else {
             $error = "Username atau password salah";

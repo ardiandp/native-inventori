@@ -194,10 +194,10 @@ $menus_result = $conn->query($query);
                                 <?= $menu['is_active'] ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-danger">Nonaktif</span>' ?>
                             </td>
                             <td class="text-center">
-                                <a href="menus.php?edit=<?= $menu['id'] ?>" class="btn btn-sm btn-warning">
+                                <a href="?page=menus_edit&edit=<?= $menu['id'] ?>" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="?page=views/menus_hapus.php&id=<?= $menu['id'] ?>" class="btn btn-sm btn-danger" 
+                                <a href="?page=menus_hapus&id=<?= $menu['id'] ?>" class="btn btn-sm btn-danger" 
                                    onclick="return confirm('Yakin hapus menu ini?')">
                                     <i class="fas fa-trash"></i>
                                 </a>

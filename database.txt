@@ -1,0 +1,280 @@
+-- Adminer 5.2.1 MariaDB 10.11.13-MariaDB-log dump
+
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+SET NAMES utf8mb4;
+
+DROP TABLE IF EXISTS `barang`;
+CREATE TABLE `barang` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_barang` varchar(255) NOT NULL,
+  `kategori` varchar(255) DEFAULT NULL,
+  `stok_awal` int(11) NOT NULL DEFAULT 0,
+  `satuan` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `barang` (`id`, `nama_barang`, `kategori`, `stok_awal`, `satuan`, `created_at`, `updated_at`) VALUES
+(2,	'Gelas',	'Dapur',	11,	'eum',	'2024-10-18 07:58:05',	'2024-10-21 09:02:24'),
+(3,	'Kopi',	'Minuman',	9,	'commodi',	'2024-10-18 07:58:05',	'2024-10-21 09:02:35'),
+(5,	'jas jus',	'eligendi',	1,	'et',	'2024-10-18 07:58:05',	'2024-10-21 09:02:57'),
+(52,	'meja',	'Parabot',	1,	'pcs',	NULL,	NULL);
+
+DROP TABLE IF EXISTS `barang_keluar`;
+CREATE TABLE `barang_keluar` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `barang_id` bigint(20) unsigned NOT NULL,
+  `divisi_id` bigint(20) unsigned NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `tanggal_keluar` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `barang_id` (`barang_id`),
+  KEY `divisi_id` (`divisi_id`),
+  CONSTRAINT `barang_keluar_ibfk_1` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id`),
+  CONSTRAINT `barang_keluar_ibfk_2` FOREIGN KEY (`divisi_id`) REFERENCES `divisi` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `barang_keluar` (`id`, `barang_id`, `divisi_id`, `jumlah`, `tanggal_keluar`, `created_at`) VALUES
+(1,	52,	7,	5,	'2025-07-29',	'2025-07-29 10:45:16'),
+(2,	52,	5,	1,	'2025-07-29',	'2025-07-29 10:45:45'),
+(3,	5,	5,	1,	'2025-08-06',	'2025-08-05 19:29:46'),
+(4,	52,	5,	2111,	'2025-08-06',	'2025-08-05 19:29:55');
+
+DROP TABLE IF EXISTS `divisi`;
+CREATE TABLE `divisi` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nama_divisi` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `divisi` (`id`, `nama_divisi`, `created_at`, `updated_at`) VALUES
+(4,	'Tukang Parki',	'2024-10-18 07:58:05',	'2024-10-18 07:58:05'),
+(5,	'Tukang Masak',	'2024-10-18 07:58:05',	'2024-10-18 07:58:05'),
+(6,	'Tukang Sapu',	'2024-10-18 07:58:05',	'2024-10-18 07:58:05'),
+(7,	'OB',	'2024-10-18 07:58:05',	'2024-10-18 07:58:05'),
+(31,	'kurir',	NULL,	NULL),
+(32,	'Bagian depan',	NULL,	NULL),
+(33,	'Kurri',	'2025-07-29 01:09:04',	NULL),
+(34,	'Bagian Belakang',	'2025-07-29 01:10:19',	NULL);
+
+DROP TABLE IF EXISTS `menus`;
+CREATE TABLE `menus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
+  `name` varchar(50) NOT NULL,
+  `icon` varchar(50) DEFAULT NULL,
+  `url` varchar(100) DEFAULT NULL,
+  `order` int(11) NOT NULL DEFAULT 0,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `menus` (`id`, `parent_id`, `name`, `icon`, `url`, `order`, `is_active`, `created_at`, `updated_at`) VALUES
+(1,	NULL,	'Dashboard',	'fas fa-tachometer-alt',	'main.php?page=dashboard',	1,	1,	'2025-07-26 16:29:54',	'2025-08-06 04:07:12'),
+(3,	2,	'Pengguna',	'fas fa-users',	'main.php?page=users',	1,	1,	'2025-07-26 16:29:54',	'2025-08-06 04:07:18'),
+(4,	2,	'Role',	'fas fa-user-tag',	'main.php?page=roles',	2,	1,	'2025-07-26 16:29:54',	'2025-08-06 04:07:03'),
+(5,	NULL,	'Produk',	'fas fa-boxes',	'main.php?page=produk',	3,	1,	'2025-07-26 16:29:54',	'2025-08-06 03:52:32'),
+(6,	NULL,	'Laporan',	'fas fa-chart-bar',	'main.php?page=reports',	4,	1,	'2025-07-26 16:29:54',	'2025-08-06 03:52:28'),
+(8,	NULL,	'Menu',	'far fa-user nav-icon',	'main.php?page=menus',	0,	1,	'2025-07-29 07:41:21',	'2025-08-06 03:52:53'),
+(9,	NULL,	'Permisions',	'far fa-user nav-icon',	'?page=permisions&role_id=1',	0,	1,	'2025-07-29 07:42:19',	'2025-08-06 04:10:19'),
+(10,	11,	'Divisi ',	'far fa-user nav-icon',	'main.php?page=divisi',	0,	1,	'2025-07-29 07:57:35',	'2025-08-06 04:07:31'),
+(11,	NULL,	'Master',	NULL,	NULL,	0,	1,	'2025-07-29 08:15:02',	'2025-07-29 08:15:02'),
+(12,	11,	'Barang',	'far fa-user nav-icon',	'main.php?page=barang',	0,	1,	'2025-07-29 08:15:44',	'2025-08-06 04:07:37'),
+(13,	NULL,	'Users',	'far fa-user nav-icon',	'main.php?page=/users',	0,	1,	'2025-07-29 08:22:56',	'2025-08-06 04:07:47'),
+(14,	NULL,	'Request Barang',	'far fa-user nav-icon',	'main.php?page=request_barang',	0,	1,	'2025-07-29 09:00:32',	'2025-08-06 04:07:52'),
+(15,	NULL,	'User Request Barang',	'far fa-user nav-icon',	'main.php?page=user_request_barang',	0,	1,	'2025-07-29 16:27:16',	'2025-08-06 04:07:59'),
+(16,	NULL,	'Profile',	'far fa-user nav-icon',	'main.php?page=profile',	0,	1,	'2025-07-29 16:44:47',	'2025-08-06 04:08:04'),
+(17,	NULL,	'Barang Keluar',	'far fa-user nav-icon',	'main.php?page=barang_keluar',	0,	1,	'2025-07-29 17:48:02',	'2025-08-06 04:08:10'),
+(18,	NULL,	'Barang PA',	'far fa-user nav-icon',	'main.php?page=barang_pa',	0,	1,	'2025-08-06 04:24:04',	'2025-08-06 04:24:04');
+
+DROP TABLE IF EXISTS `pd_detail`;
+CREATE TABLE `pd_detail` (
+  `detail_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `barang_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `unit_price` decimal(10,2) DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`detail_id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `pd_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `po` (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+
+
+DROP TABLE IF EXISTS `permissions`;
+CREATE TABLE `permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
+  `can_view` tinyint(1) NOT NULL DEFAULT 0,
+  `can_create` tinyint(1) NOT NULL DEFAULT 0,
+  `can_edit` tinyint(1) NOT NULL DEFAULT 0,
+  `can_delete` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `role_menu` (`role_id`,`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `permissions` (`id`, `role_id`, `menu_id`, `can_view`, `can_create`, `can_edit`, `can_delete`, `created_at`, `updated_at`) VALUES
+(117,	3,	16,	1,	1,	1,	1,	'2025-07-29 17:10:09',	'2025-07-29 17:10:09'),
+(118,	3,	15,	1,	1,	1,	1,	'2025-07-29 17:10:09',	'2025-07-29 17:10:09'),
+(119,	3,	1,	1,	0,	0,	0,	'2025-07-29 17:10:09',	'2025-07-29 17:10:09'),
+(120,	3,	5,	1,	0,	0,	0,	'2025-07-29 17:10:09',	'2025-07-29 17:10:09'),
+(121,	4,	16,	1,	1,	1,	1,	'2025-07-29 17:10:22',	'2025-07-29 17:10:22'),
+(122,	4,	15,	1,	1,	1,	1,	'2025-07-29 17:10:22',	'2025-07-29 17:10:22'),
+(123,	5,	16,	1,	1,	1,	1,	'2025-07-29 17:10:32',	'2025-07-29 17:10:32'),
+(124,	5,	15,	1,	1,	1,	1,	'2025-07-29 17:10:32',	'2025-07-29 17:10:32'),
+(125,	5,	14,	1,	1,	1,	1,	'2025-07-29 17:10:32',	'2025-07-29 17:10:32'),
+(142,	10,	15,	1,	1,	1,	1,	'2025-08-06 02:26:25',	'2025-08-06 02:26:25'),
+(143,	10,	1,	1,	1,	1,	1,	'2025-08-06 02:26:25',	'2025-08-06 02:26:25'),
+(159,	11,	17,	1,	1,	1,	1,	'2025-08-06 02:28:04',	'2025-08-06 02:28:04'),
+(160,	11,	14,	1,	1,	1,	1,	'2025-08-06 02:28:04',	'2025-08-06 02:28:04'),
+(161,	11,	1,	1,	1,	1,	1,	'2025-08-06 02:28:04',	'2025-08-06 02:28:04'),
+(211,	2,	17,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(212,	2,	16,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(213,	2,	15,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(214,	2,	14,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(215,	2,	13,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(216,	2,	8,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(217,	2,	9,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(218,	2,	11,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(219,	2,	1,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(220,	2,	5,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(221,	2,	6,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(222,	2,	3,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(223,	2,	4,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(224,	2,	12,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(225,	2,	10,	1,	1,	1,	1,	'2025-08-06 04:09:25',	'2025-08-06 04:09:25'),
+(245,	1,	17,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(246,	1,	16,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(247,	1,	15,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(248,	1,	14,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(249,	1,	13,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(250,	1,	8,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(251,	1,	9,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(252,	1,	11,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(253,	1,	1,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(254,	1,	5,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(255,	1,	6,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(256,	1,	3,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(257,	1,	4,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(258,	1,	12,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(259,	1,	10,	1,	1,	1,	1,	'2025-08-06 04:18:10',	'2025-08-06 04:18:10'),
+(269,	12,	18,	1,	1,	1,	1,	'2025-08-06 04:24:33',	'2025-08-06 04:24:33'),
+(270,	12,	16,	1,	1,	1,	1,	'2025-08-06 04:24:33',	'2025-08-06 04:24:33'),
+(271,	12,	1,	1,	1,	1,	1,	'2025-08-06 04:24:33',	'2025-08-06 04:24:33'),
+(272,	12,	12,	1,	1,	1,	1,	'2025-08-06 04:24:33',	'2025-08-06 04:24:33');
+
+DROP TABLE IF EXISTS `po`;
+CREATE TABLE `po` (
+  `order_id` int(11) NOT NULL,
+  `supplier` varchar(11) DEFAULT NULL,
+  `order_date` date DEFAULT NULL,
+  `total_amount` decimal(10,2) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+
+INSERT INTO `po` (`order_id`, `supplier`, `order_date`, `total_amount`, `status`, `notes`) VALUES
+(2,	'cv agus',	'2025-08-01',	300000.00,	'wait',	'-');
+
+DROP TABLE IF EXISTS `request_barang`;
+CREATE TABLE `request_barang` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `divisi_id` bigint(20) unsigned NOT NULL,
+  `barang_id` bigint(20) unsigned NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'Pending',
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `divisi_id` (`divisi_id`),
+  KEY `barang_id` (`barang_id`),
+  CONSTRAINT `request_barang_ibfk_1` FOREIGN KEY (`divisi_id`) REFERENCES `divisi` (`id`),
+  CONSTRAINT `request_barang_ibfk_2` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `request_barang` (`id`, `divisi_id`, `barang_id`, `jumlah`, `status`, `created_at`, `updated_at`) VALUES
+(1,	34,	5,	1,	'Ditolak',	'2025-07-29 09:01:28',	'2025-07-29 09:05:43'),
+(2,	32,	5,	1,	'Disetujui',	'2025-07-29 09:03:26',	'2025-07-29 09:05:02'),
+(3,	33,	5,	5,	'Pending',	'2025-07-29 09:05:51',	'2025-07-29 09:05:51'),
+(4,	4,	5,	5,	'Pending',	'2025-07-29 09:05:59',	'2025-07-29 09:05:59'),
+(6,	5,	5,	2,	'Ditolak',	'2025-07-29 16:53:13',	'2025-07-29 17:08:47'),
+(7,	5,	52,	2111,	'Disetujui',	'2025-07-29 16:53:26',	'2025-08-06 02:29:55'),
+(8,	5,	5,	1,	'Disetujui',	'2025-07-29 16:54:50',	'2025-08-06 02:29:46'),
+(9,	5,	2,	21,	'Ditolak',	'2025-07-29 16:54:59',	'2025-07-29 17:45:40'),
+(10,	5,	2,	21,	'Ditolak',	'2025-07-29 16:55:25',	'2025-07-29 17:08:08'),
+(11,	5,	52,	1,	'Disetujui',	'2025-07-29 16:55:31',	'2025-07-29 17:45:45'),
+(12,	5,	5,	1111,	'Pending',	'2025-07-29 16:56:33',	'2025-07-29 16:56:33'),
+(13,	5,	5,	1111,	'Disetujui',	'2025-07-29 16:56:49',	'2025-07-29 17:08:01'),
+(14,	7,	2,	90,	'Disetujui',	'2025-07-29 17:13:08',	'2025-07-29 17:13:32'),
+(15,	7,	52,	5,	'Disetujui',	'2025-07-29 17:13:15',	'2025-07-29 17:38:49'),
+(16,	5,	5,	5,	'Pending',	'2025-08-04 11:54:50',	'2025-08-04 11:54:50'),
+(17,	33,	5,	90,	'Pending',	'2025-08-05 12:13:39',	'2025-08-05 12:13:39'),
+(18,	5,	5,	3,	'Pending',	'2025-08-06 02:28:55',	'2025-08-06 02:28:55');
+
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `roles` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1,	'Super Admin',	'Memiliki semua hak akses',	'2025-07-26 16:29:49',	'2025-08-06 02:34:06'),
+(2,	'Admin',	'Admin dengan hak akses terbatas',	'2025-07-26 16:29:49',	'2025-08-06 02:33:48'),
+(10,	'Bagian',	'yang bertugas meminta barang',	'2025-08-06 02:20:25',	'2025-08-06 02:20:25'),
+(11,	'Staff umum',	'Bagian acc permintaan',	'2025-08-06 02:20:37',	'2025-08-06 02:20:37'),
+(12,	'Bagian Pengadaan',	'bertugas mengadakan barang',	'2025-08-06 02:20:56',	'2025-08-06 02:20:56');
+
+DROP TABLE IF EXISTS `suppliers`;
+CREATE TABLE `suppliers` (
+  `supplier_id` int(11) NOT NULL AUTO_INCREMENT,
+  `supplier_name` varchar(100) DEFAULT NULL,
+  `contact_info` text DEFAULT NULL,
+  PRIMARY KEY (`supplier_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `full_name` varchar(100) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `divisi_id` int(3) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `full_name`, `role_id`, `divisi_id`, `is_active`, `created_at`, `updated_at`) VALUES
+(1,	'superadmin',	'$2y$10$2ds9nfClbFJ.z3k0CYY2tuJBNzdwURHk1WW7hVHwHS9mZmATGJh5G',	'superadmin@example.com',	'Super Administrator',	1,	4,	1,	'2025-07-26 16:29:59',	'2025-08-06 02:34:41'),
+(3,	'admin',	'$2y$10$2ds9nfClbFJ.z3k0CYY2tuJBNzdwURHk1WW7hVHwHS9mZmATGJh5G',	'admin@mail.com',	'admin aja',	2,	5,	1,	'2025-07-29 07:30:20',	'2025-07-29 08:29:30'),
+(14,	'14',	'$2y$10$ThzfltuEHe6dE4NlKYjl4OcnLhYvZ1IAtf2lPBeZEEwPibncjRfbO',	'14@mail.com',	'user aja',	5,	33,	1,	'2025-08-04 12:10:59',	'2025-08-04 12:10:59'),
+(15,	'bagian',	'$2y$10$msWmmAl7A.dGfGsPfIbU5.81ipqs6T1xK.pZxwoVCSXQjU3zM4PDe',	'bagian@mail.com',	'joni bagian 1',	10,	7,	1,	'2025-08-06 02:22:35',	'2025-08-06 02:22:35'),
+(16,	'staff',	'$2y$10$.xSGEdKzl5XLaC63rIZBwOObcPif5CpIup4M.JjJ9ptiYB7PSPCl2',	'staff@mail.com',	'Yuli Staff',	11,	32,	1,	'2025-08-06 02:23:07',	'2025-08-06 02:23:07'),
+(17,	'pa',	'$2y$10$TZ28VZmv3W/Z4EbRVUH0nO7/gBvmNUIjxf7kYDtDazWV7rNNax.TC',	'pa@mail.com',	'andi bagian pengadaan',	12,	34,	1,	'2025-08-06 02:23:38',	'2025-08-06 02:23:38');
+
+-- 2025-08-06 09:26:54 UTC

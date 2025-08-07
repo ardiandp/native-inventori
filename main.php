@@ -70,30 +70,15 @@ function sanitize_path($path) {
 }
 
 // Ambil parameter page dari URL
-$requested_page = isset($_GET['page']) ? sanitize_path($_GET['page']) : 'views/dashboard.php';
+$requested_page = isset($_GET['page']) ? sanitize_path($_GET['page']) : 'dashboard.php';
 
-// Daftar halaman yang diizinkan
-$allowed_pages = [
-    'views/dashboard.php',
-    'views/produk.php',
-    'views/roles.php',
-    'views/users.php',
-    'views/menus.php',
-    'views/permisions.php',
-    'views/menus_hapus.php',
-    'views/divisi.php',
-    'views/barang.php',
-    'views/request_barang.php',
-    'views/user_request_barang.php',
-    'views/profile.php',
-    'views/barang_keluar.php',
-    'views/hapus_user.php',
-    // Tambahkan halaman lain yang diizinkan di sini
-];
+$page = htmlentities($_GET['page']);
+$halaman = "$page.php";
 
-// Cek apakah halaman yang diminta valid
-if (!in_array($requested_page, $allowed_pages)) {
-    $requested_page = 'views/dashboard.php';
+if (!file_exists($halaman) || empty($page)) {
+    include "dashboard.php";
+} else {
+    include "$halaman";
 }
 
 // Ekstrak judul halaman dari nama file

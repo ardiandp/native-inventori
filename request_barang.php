@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_request'])) {
    // header("Location: request_barang.php");
     echo "<script>  
         alert('Data berhasil disimpan!');
-        window.location.href = '?page=views/request_barang.php';
+        window.location.href = '?page=request_barang';
     </script>";
     exit();
 }
@@ -46,7 +46,7 @@ if (isset($_GET['update_status'])) {
      // header("Location: request_barang.php");
     echo "<script>  
         alert('Data berhasil disimpan!');
-        window.location.href = '?page=views/request_barang.php';
+        window.location.href = '?page=request_barang';
     </script>";
     exit();
 }
@@ -152,10 +152,10 @@ $barang = $conn->query("SELECT * FROM barang ORDER BY nama_barang");
                                         Ubah Status
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="main.php?page=views/request_barang.php&update_status&id=<?= $row['id'] ?>&status=Disetujui">Disetujui</a>
-                                        <a class="dropdown-item" href="main.php?page=views/request_barang.php&update_status&id=<?= $row['id'] ?>&status=Ditolak">Ditolak</a>
-                                        <a class="dropdown-item" href="main.php?page=views/request_barang.php&update_status&id=<?= $row['id'] ?>&status=Diproses">Diproses</a>
-                                        <a class="dropdown-item" href="main.php?page=views/request_barang.php&update_status&id=<?= $row['id'] ?>&status=Selesai">Selesai</a>
+                                        <a class="dropdown-item" href="main.php?page=request_barang&update_status&id=<?= $row['id'] ?>&status=Disetujui">Disetujui</a>
+                                        <a class="dropdown-item" href="main.php?page=request_barang&update_status&id=<?= $row['id'] ?>&status=Ditolak">Ditolak</a>
+                                        <a class="dropdown-item" href="main.php?page=request_barang&update_status&id=<?= $row['id'] ?>&status=Diproses">Diproses</a>
+                                        <a class="dropdown-item" href="main.php?page=request_barang&update_status&id=<?= $row['id'] ?>&status=Selesai">Selesai</a>
                                     </div>
                                 </div>
                             </td>

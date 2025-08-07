@@ -53,13 +53,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label" for="status">Status</label>
-                <select id="status" name="status" class="form-control">
-                    <option value="draft">Draft</option>
-                    <option value="diproses">Diproses</option>
-                    <option value="disetujui">Disetujui</option>
-                    <option value="ditolak">Ditolak</option>
-                    <option value="selesai">Selesai</option>
-                </select>
+                <input type="text" id="status" name="status" class="form-control" value="draft" readonly>
             </div>
             <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
         </form>
@@ -98,7 +92,7 @@ if (isset($_POST['simpan'])) {
     if ($stmt->execute()) {
         echo "<script>
             alert('Data pengadaan barang berhasil disimpan.');
-            window.location.href='?page=tampil_pengadaan_barang';
+            window.location.href='?page=tampil_pengadaan_barang_bu';
         </script>";
     } else {
         echo '<div class="alert alert-danger mt-3">Gagal menyimpan data: ' . htmlspecialchars($stmt->error) . '</div>';

@@ -142,7 +142,7 @@
 </head>
 <body>
     <!-- Brand Logo -->
-    <a href="index.php" class="brand-link">
+    <a href="main.php?page=dashboard" class="brand-link">
         <span>AdminPanel</span>
     </a>
     

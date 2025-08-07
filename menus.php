@@ -197,7 +197,7 @@ $menus_result = $conn->query($query);
                                 <?= $menu['is_active'] ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-danger">Nonaktif</span>' ?>
                             </td>
                             <td class="text-center">
-                                <a href="?page=menus_edit&edit=<?= $menu['id'] ?>" class="btn btn-sm btn-warning">
+                                <a href="?page=menus_edit&id=<?= $menu['id'] ?>" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a href="?page=menus_hapus&id=<?= $menu['id'] ?>" class="btn btn-sm btn-danger" 

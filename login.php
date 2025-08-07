@@ -8,8 +8,8 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Koneksi database
- $conn = new mysqli("localhost", "dev", "terserah", "winkur");
-
+// $conn = new mysqli("localhost", "dev", "terserah", "winkur");
+require_once 'config/database.php';
 // Proses login
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $conn->real_escape_string($_POST['username']);

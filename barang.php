@@ -1,7 +1,7 @@
 <?php
 // Koneksi database
-$conn = new mysqli("localhost", "dev", "terserah", "winkur");
-
+//$conn = new mysqli("localhost", "dev", "terserah", "winkur");
+require 'config/database.php';
 // Proses tambah barang
 if  (isset($_POST['tambah_barang'])) {
     $nama_barang = $conn->real_escape_string($_POST['nama_barang']);
@@ -17,7 +17,7 @@ if  (isset($_POST['tambah_barang'])) {
    // header("Location: barang.php");
     echo "<script>
         alert('Data berhasil disimpan!');
-        window.location.href = '?page=views/barang.php';
+        window.location.href = '?page=barang';
     </script>";
     exit();
 }
@@ -28,7 +28,7 @@ if (isset($_GET['hapus'])) {
     $conn->query("DELETE FROM barang WHERE id = $id");
    echo "<script>
         alert('Data berhasil Dihpus!');
-        window.location.href = '?page=views/barang.php';
+        window.location.href = '?page=barang';
     </script>";
     exit();
 }

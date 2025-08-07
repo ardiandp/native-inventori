@@ -1,7 +1,7 @@
 <?php
 // Koneksi ke database
-$conn = new mysqli("localhost", "root", "", "winkur");
-
+//$conn = new mysqli("localhost", "root", "", "winkur");
+require 'config/database.php';
 // Ambil data user berdasarkan id
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $user = [];
@@ -24,15 +24,15 @@ while ($row = $divisiResult->fetch_assoc()) {
 
 // Proses update
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nama = $conn->real_escape_string($_POST['nama']);
+  //  $nama = $conn->real_escape_string($_POST['nama']);
     $username = $conn->real_escape_string($_POST['username']);
     $email = $conn->real_escape_string($_POST['email']);
     $role_id = intval($_POST['role_id']);
     $divisi_id = intval($_POST['divisi_id']);
 
-    $sql = "UPDATE users SET nama='$nama', username='$username', email='$email', role_id=$role_id, divisi_id=$divisi_id WHERE id=$id";
+    $sql = "UPDATE users SET  username='$username', email='$email', role_id=$role_id, divisi_id=$divisi_id WHERE id=$id";
     if ($conn->query($sql)) {
-        echo "<script>alert('User berhasil diupdate');window.location='list_user.php';</script>";
+        echo "<script>alert('User berhasil diupdate');window.location='?page=users';</script>";
         exit;
     } else {
         echo "<div class='alert alert-danger'>Gagal update user: " . $conn->error . "</div>";

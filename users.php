@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_user'])) {
     //header("Location: users.php");
     echo "<script>
         alert('Data berhasil disimpan!');
-        window.location.href = '?page=views/users.php';
+        window.location.href = '?page=users.php';
     </script>";
 
     exit();

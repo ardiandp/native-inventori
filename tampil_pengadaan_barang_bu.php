@@ -15,8 +15,8 @@ $result = $conn->query($sql);
 <div class="container-fluid">
     <div class="card shadow mb-4"></div>
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Pengadaan Barang</h6>
-            <a href="?page=input_pengadaan_barang" class="btn btn-primary btn-sm">Tambah Pengadaan</a>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Pengadaan Barang - Bagian Umum</h6>
+            <a href="?page=input_pengadaan_barang_bu" class="btn btn-primary btn-sm">Tambah Pengadaan</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -44,7 +44,7 @@ $result = $conn->query($sql);
                                     <td>{$row['keterangan']}</td>
                                     <td>{$row['status']}</td>
                                     <td>
-                                        <a href='?page=edit_pengadaan&id={$row['id']}' class='btn btn-sm btn-warning'>Edit</a>
+                                        
                                         <a href='hapus_pengadaan.php?id={$row['id']}' class='btn btn-sm btn-danger' onclick=\"return confirm('Yakin ingin menghapus?')\">Hapus</a>
                                     </td>
                                 </tr>";

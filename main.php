@@ -3,7 +3,7 @@ require 'config/database.php';
 // Include middleware cek login
 require_once 'cek_login.php';
 function checkPermission($role_id, $page) {
-    $conn = new mysqli("localhost", "dev", "terserah", "winkur");
+   // $conn = new mysqli("localhost", "dev", "terserah", "winkur");
     
     // Ambil nama file dari URL
     $page_name = basename($page, '.php');

@@ -1,6 +1,7 @@
 <?php
+require 'config/database.php';
 // Proses tambah role
-  $conn = new mysqli("localhost", "dev", "terserah", "winkur");
+  //$conn = new mysqli("localhost", "dev", "terserah", "winkur");
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_role'])) {
     $name = $conn->real_escape_string($_POST['name']);
     $description = $conn->real_escape_string($_POST['description'] ?? '');
@@ -9,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_role'])) {
         $query = "INSERT INTO roles (name, description) VALUES ('$name', '$description')";
         $conn->query($query);
     }
-    echo "<script>alert('Role berhasil ditambahkan!'); window.location.href = 'main.php?page=roles.php';</script>";
+    echo "<script>alert('Role berhasil ditambahkan!'); window.location.href = 'main.php?page=roles';</script>";
     exit();
 }
 

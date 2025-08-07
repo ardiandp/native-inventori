@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_request'])) {
    // header("Location: request_barang.php");
     echo "<script>  
         alert('Data berhasil disimpan!');
-        window.location.href = '?page=views/user_request_barang.php';
+        window.location.href = '?page=user_request_barang';
     </script>";
     exit();
 }

@@ -8,8 +8,12 @@ if ($conn->connect_error) {
 }
 
 // Query untuk mengambil data dari tabel pengadaan_barang
-$sql = "SELECT *FROM pengadaan_barang LEFT JOIN barang ON pengadaan_barang.`barang_id`=barang.`id`;
-";
+$sql = " select pengadaan_barang.id AS idpengadaan,
+  pengadaan_barang.*,
+  barang.*
+FROM pengadaan_barang
+LEFT JOIN barang
+  ON pengadaan_barang.barang_id = barang.id";
 $result = $conn->query($sql);
 ?>
 <div class="container-fluid">
@@ -37,15 +41,15 @@ $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                             while($row = $result->fetch_assoc()) {
                                 echo "<tr>
-                                    <td>{$row['id']}</td>
+                                    <td> {$row['idpengadaan']}</td>
                                     <td>{$row['nama_barang']}</td>
                                     <td>{$row['jumlah']}</td>
                                     <td>{$row['tanggal_pengadaan']}</td>
                                     <td>{$row['keterangan']}</td>
                                     <td>{$row['status']}</td>
                                     <td>
-                                        <a href='?page=edit_pengadaan&id={$row['id']}' class='btn btn-sm btn-warning'>Edit</a>
-                                        <a href='hapus_pengadaan.php?id={$row['id']}' class='btn btn-sm btn-danger' onclick=\"return confirm('Yakin ingin menghapus?')\">Hapus</a>
+                                        <a href='?page=edit_pengadaan&id={$row['idpengadaan']}' class='btn btn-sm btn-warning'>Edit</a>
+                                        <a href='?page=hapus_pengadaan&id={$row['idpengadaan']}' class='btn btn-sm btn-danger' onclick=\"return confirm('Yakin ingin menghapus?')\">Hapus</a>
                                     </td>
                                 </tr>";
                             }

@@ -9,8 +9,8 @@
         <h2>Form Input Pengadaan Barang</h2>
         <form action="" method="post">
             <?php
-            // Koneksi ke database
-            $conn = new mysqli("localhost", "root", "", "winkur"); // Ganti nama_database sesuai kebutuhan
+         require 'config/database.php';
+            //$conn = new mysqli("localhost", "root", "", "winkur"); // Ganti nama_database sesuai kebutuhan
             if ($conn->connect_error) {
                 die("Koneksi gagal: " . $conn->connect_error);
             }
@@ -63,7 +63,8 @@
 
 <?php
 if (isset($_POST['simpan'])) {
-    $conn = new mysqli("localhost", "root", "", "winkur");
+    require 'config/database.php';
+   
     if ($conn->connect_error) {
         die("Koneksi gagal: " . $conn->connect_error);
     }

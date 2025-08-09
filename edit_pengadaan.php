@@ -1,18 +1,20 @@
 <?php
 // Koneksi ke database
-$conn = new mysqli("localhost", "root", "", "winkur");
 
+require 'config/database.php';
 // Ambil data pengadaan berdasarkan id
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $pengadaan = [];
 if ($id > 0) {
-    $result = $conn->query("SELECT * FROM pengadaan_barang WHERE id = $id");
+    $result = $conn->query("select *from pengadaan_barang
+inner join barang on pengadaan_barang.barang_id=barang.id 
+and pengadaan_barang.id= $id");
     $pengadaan = $result->fetch_assoc();
 }
 
 // Proses update pengadaan
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nama_barang = $conn->real_escape_string($_POST['nama_barang']);
+    $barang_id = $conn->real_escape_string($_POST['barang_id']);
     $jumlah = (int)$_POST['jumlah'];
     $satuan = $conn->real_escape_string($_POST['satuan']);
     $tanggal_pengadaan = $conn->real_escape_string($_POST['tanggal_pengadaan']);
@@ -20,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = isset($_POST['status']) ? $conn->real_escape_string($_POST['status']) : null;
 
     $sql = "UPDATE pengadaan_barang SET 
-            nama_barang='$nama_barang', 
+            barang_id='$barang_id', 
             jumlah=$jumlah, 
             satuan='$satuan', 
             tanggal_pengadaan='$tanggal_pengadaan', 
@@ -50,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST">
         <div class="mb-3">
             <label class="form-label" for="nama_barang">Nama Barang</label>
+            <input type="hidden" name="barang_id" value="<?= $pengadaan['barang_id'] ?>">
             <input type="text" id="nama_barang" name="nama_barang" class="form-control" value="<?= htmlspecialchars($pengadaan['nama_barang']) ?>" required>
         </div>
         <div class="mb-3">

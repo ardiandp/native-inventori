@@ -49,6 +49,11 @@ $result = $conn->query($query);
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Daftar Barang</h6>
         </div>
+         <div class="card-footer">
+            <button type="button" class="btn btn-primary" onclick="exportPdf()">
+                <i class="fas fa-file-pdf"></i> Export PDF
+            </button>
+        </div>
         <div class="card-body">
             <!-- Form Tambah Barang -->
             <form method="POST" class="mb-4">
@@ -108,8 +113,34 @@ $result = $conn->query($query);
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 </div>
+
+ <script>
+    function exportPdf() {
+        var sTable = document.querySelector('.table-responsive table').outerHTML;
+
+        var style = "<style>";
+        style += "table {width: 100%;font: 17px Calibri;}";
+        style += "table, th, td {border: solid 1px #DDD; border-collapse: collapse;}";
+        style += "th, td {padding: 2px 3px;text-align: center;}";
+        style += "</style>";
+
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write('<title>Daftar Barang</title>');
+        win.document.write(style);
+        win.document.write('</head><body>');
+        win.document.write(sTable);
+        win.document.write('</body></html>');
+
+        win.document.close();
+
+        win.print();
+    }
+</script>
 
 <?php $conn->close(); ?>

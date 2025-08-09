@@ -76,7 +76,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <select id="status" name="status" class="form-control">
                 <option value="draft" <?= $pengadaan['status'] == 'draft' ? 'selected' : '' ?>>Draft</option>
                 <option value="diproses" <?= $pengadaan['status'] == 'diproses' ? 'selected' : '' ?>>Diproses</option>
-                <option value="disetujui" <?= $pengadaan['status'] == 'disetujui' ? 'selected' : '' ?>>Disetujui</option>
+                <option value="disetujui" <?= $pengadaan['status'] == 'disetujui' ? 'selected' : '' ?>>
+                    Disetujui
+                    <?php if (isset($_POST['status']) && $_POST['status'] == 'disetujui') : ?>
+                        <?php
+                            $sql = "SELECT * FROM barang_masuk WHERE barang_id={$pengadaan['barang_id']} AND tanggal_masuk=CURDATE()";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows == 0) {
+                                $sql = "INSERT INTO barang_masuk (barang_id, jumlah, tanggal_masuk) 
+                                        VALUES ({$pengadaan['barang_id']}, {$pengadaan['jumlah']}, CURDATE())";
+                                $conn->query($sql);
+                            }
+                        ?>
+                    <?php endif; ?>
+                </option>
                 <option value="ditolak" <?= $pengadaan['status'] == 'ditolak' ? 'selected' : '' ?>>Ditolak</option>
                 <option value="selesai" <?= $pengadaan['status'] == 'selesai' ? 'selected' : '' ?>>Selesai</option>
             </select>

@@ -103,7 +103,7 @@ function load_template($page_title, $active_menu, $content_view) {
     if (file_exists($content_view)) {
         require_once $content_view;
     } else {
-        echo '<div class="alert alert-danger">Halaman tidak ditemukan!</div>';
+      //  echo '<div class="alert alert-danger">Halaman tidak ditemukan!</div>';
     }
     
     // End main content

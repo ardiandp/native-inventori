@@ -1,7 +1,7 @@
 <?php
 // Koneksi ke database
-$conn = new mysqli("localhost", "root", "", "winkur");
-
+// $conn = new mysqli("localhost", "root", "", "winkur");
+require 'config/database.php';
 // Cek koneksi
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);

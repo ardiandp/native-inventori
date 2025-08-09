@@ -1,6 +1,6 @@
 <?php
-$conn = new mysqli("localhost", "dev", "terserah", "winkur");
 
+require 'config/database.php';
 // Ambil data barang
 $query = "SELECT id, nama_barang, kategori, stok_awal, satuan FROM barang ORDER BY id DESC";
 $barang_result = $conn->query($query);

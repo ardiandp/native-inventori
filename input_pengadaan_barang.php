@@ -10,7 +10,8 @@
         <form action="" method="post">
             <?php
             // Koneksi ke database
-            $conn = new mysqli("localhost", "root", "", "winkur"); // Ganti nama_database sesuai kebutuhan
+            require 'config/database.php';
+           
             if ($conn->connect_error) {
                 die("Koneksi gagal: " . $conn->connect_error);
             }

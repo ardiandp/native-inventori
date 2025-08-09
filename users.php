@@ -1,7 +1,7 @@
 <?php
 // Koneksi database
-$conn = new mysqli("localhost", "dev", "terserah", "winkur");
-
+//$conn = new mysqli("localhost", "dev", "terserah", "winkur");
+require 'config/database.php';
 // Proses tambah user
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_user'])) {
     $username = $conn->real_escape_string($_POST['username']);

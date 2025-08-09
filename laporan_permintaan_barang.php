@@ -1,7 +1,7 @@
 <?php
 // Koneksi ke database
-$conn = new mysqli("localhost", "root", "", "winkur");
 
+require 'config/database.php';
 // Query data dari tabel request_barang beserta relasi divisi dan barang
 $sql = "SELECT rb.id, d.nama_divisi AS divisi_nama, b.nama_barang AS barang_nama, rb.jumlah, rb.status
     FROM request_barang rb

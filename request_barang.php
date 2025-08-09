@@ -1,6 +1,7 @@
 <?php
+require 'config/database.php';
 // Koneksi database
-$conn = new mysqli("localhost", "dev", "terserah", "winkur");
+//$conn = new mysqli("localhost", "dev", "terserah", "winkur");
 
 // Proses tambah request
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_request'])) {

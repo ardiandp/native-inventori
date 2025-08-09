@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require 'config/database.php';
 // Redirect ke login jika tidak ada session
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Koneksi database untuk cek user masih valid
-   $conn = new mysqli("localhost", "dev", "terserah", "winkur");
+//   $conn = new mysqli("localhost", "dev", "terserah", "winkur");
 
 $query = "SELECT id, role_id FROM users WHERE id = ? AND is_active = 1 LIMIT 1";
 $stmt = $conn->prepare($query);

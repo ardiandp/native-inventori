@@ -95,10 +95,10 @@ $result = $conn->query($query);
                             <td class="text-right"><?= number_format($row['stok_awal'], 0, ',', '.') ?></td>
                             <td><?= htmlspecialchars($row['satuan']) ?></td>
                             <td class="text-center">
-                                <a href="barang_edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">
+                                <a href="?page=barang_edit&id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="main.php?page=views/barang.php&hapus=<?= $row['id'] ?>" class="btn btn-sm btn-danger" 
+                                <a href="main.php?page=barang&hapus=<?= $row['id'] ?>" class="btn btn-sm btn-danger" 
                                    onclick="return confirm('Yakin hapus barang ini?')">
                                     <i class="fas fa-trash"></i>
                                 </a>

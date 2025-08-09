@@ -1,7 +1,7 @@
 <?php
 // Koneksi database
-$conn = new mysqli("localhost", "dev", "terserah", "winkur");
-
+// $conn = new mysqli("localhost", "dev", "terserah", "winkur");
+require 'config/database.php';
 // Proses tambah request
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_request'])) {
     $divisi_id = intval($_SESSION['divisi_id']);

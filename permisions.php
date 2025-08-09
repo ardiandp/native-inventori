@@ -1,7 +1,7 @@
 <?php
 // Koneksi database
-$conn = new mysqli("localhost", "dev", "terserah", "winkur");
 
+require 'config/database.php';
 // Proses simpan permissions
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['simpan_permissions'])) {
     $role_id = intval($_POST['role_id']);

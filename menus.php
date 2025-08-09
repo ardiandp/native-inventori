@@ -1,6 +1,7 @@
 <?php
 // Koneksi database
-$conn = new mysqli("localhost", "dev", "terserah", "winkur");
+require 'config/database.php';
+//$conn = new mysqli("localhost", "dev", "terserah", "winkur");
 
 // Proses CRUD Menu
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

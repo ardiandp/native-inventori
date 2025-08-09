@@ -2,8 +2,7 @@
 
 
 // Koneksi database
-$conn = new mysqli("localhost", "dev", "terserah", "winkur");
-
+require 'config/database.php';
 // Query untuk mendapatkan data barang keluar dengan join ke tabel barang dan divisi
 $query = "SELECT 
             bk.id,

@@ -1,14 +1,20 @@
 <?php
 // Set variabel untuk template
-$page_title = "Dashboard";
-$active_menu = "dashboard";
+//$page_title = "Dashboard";
+//$active_menu = "dashboard";
 
 // Include main template loader
-require_once 'main.php';
+//require_once 'main.php';
 
 // Define content view
-$content_view = 'views/dashboard.php';
+//$content_view = 'dashboard.php';
 
 // Load template
-load_template($page_title, $active_menu, $content_view);
+//load_template($page_title, $active_menu, $content_view);
 ?>
+
+<?php
+header("Location: main.php?page=dashboard");
+exit();
+?>
+

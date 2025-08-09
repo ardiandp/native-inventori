@@ -28,8 +28,8 @@ function checkPermission($role_id, $page) {
 
 
 function buildMenu($role_id) {
-         $conn = new mysqli("localhost", "dev", "terserah", "winkur");
-    
+      //   $conn = new mysqli("localhost", "dev", "terserah", "winkur");
+    require 'config/database.php';
     $menu = [];
     $query = "SELECT m.*, p.can_view 
               FROM menus m

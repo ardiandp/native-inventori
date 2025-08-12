@@ -22,7 +22,9 @@ $result = $conn->query($sql);
 </head>
 <body>
 <div class="container mt-4">
-    <h2 class="mb-4">Daftar Pengadaan Barang</h2>
+    <h2 class="mb-4">Laporan Pengadaan Barang</h2>
+    
+   
     <table class="table table-bordered" width="100%" cellspacing="0">
         <thead class="table-dark">
             <tr>
@@ -39,7 +41,7 @@ $result = $conn->query($sql);
             <?php if ($result->num_rows > 0): ?>
                 <?php while($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo $row['id']; ?></td>
+                        <td><?php static $counter = 1; echo $counter++; ?></td>
                         <td><?php echo htmlspecialchars($row['nama_barang']); ?></td>
                         <td><?php echo $row['jumlah']; ?></td>
                         <td><?php echo htmlspecialchars($row['satuan']); ?></td>
@@ -56,6 +58,37 @@ $result = $conn->query($sql);
         </tbody>
     </table>
 </div>
+
+ <div class="card-footer">
+            <button type="button" class="btn btn-primary" onclick="exportPdf()">
+                <i class="fas fa-file-pdf"></i> Export PDF
+            </button>
+        </div>
+
+        <script>
+            function exportPdf() {
+                var sTable = document.querySelector('.table-bordered').outerHTML;
+
+                var style = "<style>";
+                style += "table {width: 100%;font: 17px Calibri;}";
+                style += "table, th, td {border: solid 1px #DDD; border-collapse: collapse;}";
+                style += "th, td {padding: 2px 3px;text-align: center;}";
+                style += "</style>";
+
+                var win = window.open('', '', 'height=700,width=700');
+
+                win.document.write('<html><head>');
+                win.document.write('<title>Daftar Pengadaan Barang</title>');
+                win.document.write(style);
+                win.document.write('</head><body>');
+                win.document.write(sTable);
+                win.document.write('</body></html>');
+
+                win.document.close();
+
+                win.print();
+            }
+        </script>
 <?php $conn->close(); ?>
 </body>
 </html>

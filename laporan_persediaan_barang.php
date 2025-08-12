@@ -39,7 +39,7 @@ $barang_result = $conn->query($query);
                     <tbody>
                         <?php while ($barang = $barang_result->fetch_assoc()): ?>
                         <tr>
-                            <td><?php echo $barang['id']; ?></td>
+                           <td><?php static $counter = 1; echo $counter++; ?></td>
                             <td><?php echo htmlspecialchars($barang['nama_barang']); ?></td>
                             <td><?php echo htmlspecialchars($barang['kategori']); ?></td>
                             <td><?php echo $barang['stok_awal']; ?></td>

@@ -1,7 +1,7 @@
 <?php
 // Koneksi database
-//$conn = new mysqli("localhost", "dev", "terserah", "winkur");
-require 'config/database.php';
+
+require_once 'config/database.php';
 // Proses tambah user
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_user'])) {
     $username = $conn->real_escape_string($_POST['username']);
@@ -155,4 +155,4 @@ $roles_result = $conn->query($roles_query);
     </div>
 </div>
 
-<?php $conn->close(); ?>
+<?php //$conn->close(); ?>

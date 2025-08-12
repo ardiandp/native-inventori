@@ -14,7 +14,7 @@ $request_result = $conn->query($sql);
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Laporan Permintaan Barang</h2>
-        <button id="exportPDF" class="btn btn-danger">Export PDF</button>
+       
     </div>
     <div class="table-responsive">
         <table id="requestTable" class="table table-bordered table-striped" width="100%" cellspacing="0">
@@ -30,7 +30,7 @@ $request_result = $conn->query($sql);
             <tbody>
             <?php while ($req = $request_result->fetch_assoc()): ?>
             <tr>
-                <td><?php echo $req['id']; ?></td>
+                <td><?php static $counter = 1; echo $counter++; ?></td>
                 <td><?php echo htmlspecialchars($req['divisi_nama']); ?></td>
                 <td><?php echo htmlspecialchars($req['barang_nama']); ?></td>
                 <td><?php echo $req['jumlah']; ?></td>
@@ -66,23 +66,39 @@ $request_result = $conn->query($sql);
             <?php endwhile; ?>
             </tbody>
         </table>
+
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary" onclick="exportPdf()">
+                <i class="fas fa-file-pdf"></i> Export PDF
+            </button>
+        </div>
+
+        <script>
+            function exportPdf() {
+                var sTable = document.getElementById('requestTable').outerHTML;
+
+                var style = "<style>";
+                style = style + "table {width: 100%;font: 17px Calibri;}";
+                style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+                style = style + "padding: 2px 3px;text-align: center;}";
+                style = style + "</style>";
+
+                // CREATE A WINDOW OBJECT.
+                var win = window.open('', '', 'height=700,width=700');
+
+                win.document.write('<html><head>');
+                win.document.write('<title>Laporan Permintaan Barang</title>'); // <title> FOR PDF HEADER.
+                win.document.write(style); // ADD STYLE INSIDE THE HEAD TAG.
+                win.document.write('</head>');
+                win.document.write('<body>');
+                win.document.write(sTable); // THE TABLE CONTENTS INSIDE THE BODY TAG.
+                win.document.write('</body></html>');
+
+                win.document.close(); // CLOSE THE CURRENT WINDOW.
+
+                win.print(); // PRINT THE CONTENTS.
+            }
+        </script>
     </div>
 </div>
 
-<script>
-$(document).ready(function() {
-    $('#requestTable').DataTable();
-    $('#exportPDF').on('click', function() {
-        html2canvas(document.querySelector("#requestTable")).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new window.jspdf.jsPDF('l', 'pt', 'a4');
-            const pageWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
-            const imgWidth = pageWidth - 40;
-            const imgHeight = canvas.height * imgWidth / canvas.width;
-            pdf.addImage(imgData, 'PNG', 20, 20, imgWidth, imgHeight);
-            pdf.save("laporan_permintaan_barang.pdf");
-        });
-    });
-});
-</script>

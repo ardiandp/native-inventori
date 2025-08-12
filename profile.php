@@ -1,9 +1,6 @@
 <?php
 
-
-// Koneksi database
-
-require 'config/database.php';
+require_once 'config/database.php';
 // Ambil data user yang login
 $user_id = $_SESSION['user_id'];
 $query = "SELECT u.*, r.name as role_name, d.nama_divisi 

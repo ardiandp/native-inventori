@@ -1,7 +1,7 @@
 <?php
 // Koneksi database
-
-require_once 'config/database.php';
+//require_once 'config/database.php';
+$conn = new mysqli("153.92.15.58", "u284292842_winkur", "Database-2025", "u284292842_winkur");
 // Proses tambah user
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_user'])) {
     $username = $conn->real_escape_string($_POST['username']);
@@ -10,20 +10,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_user'])) {
     $full_name = $conn->real_escape_string($_POST['full_name']);
     $role_id = intval($_POST['role_id']);
     $is_active = intval($_POST['is_active']);
-
     $divisi_id = isset($_POST['divisi_id']) ? intval($_POST['divisi_id']) : null;
 
     if (!empty($username) && !empty($_POST['password'])) {
-        $query = "INSERT INTO users (username, password, email, full_name, role_id,divisi_id ,is_active, created_at, updated_at) 
-                 VALUES ('$username', '$password', '$email', '$full_name', $role_id,$divisi_id, $is_active, NOW(), NOW())";
-        $conn->query($query);
+        $query = "INSERT INTO users (username, password, email, full_name, role_id, divisi_id, is_active, created_at, updated_at) 
+                 VALUES ('$username', '$password', '$email', '$full_name', $role_id, $divisi_id, $is_active, NOW(), NOW())";
+        if ($conn->query($query) === TRUE) {
+            echo "<script>
+                alert('Data berhasil disimpan!');
+                window.location.href = '?page=users';
+            </script>";
+        } else {
+            echo "<div class='alert alert-danger'>Gagal menyimpan data: " . $conn->error . "</div>";
+        }
     }
-    //header("Location: users.php");
-    echo "<script>
-        alert('Data berhasil disimpan!');
-        window.location.href = '?page=users.php';
-    </script>";
-
     exit();
 }
 
@@ -65,7 +65,7 @@ $roles_result = $conn->query($roles_query);
                             <th>Email</th>
                             <th>Nama Lengkap</th>
                             <th>Role</th>
-                            <th width="10%">Divisi</th>
+                            <th width="10%">Bagian</th>
                             <th>Aktif</th>
                             <th width="8%">Aksi</th>
                         </tr>
@@ -78,11 +78,11 @@ $roles_result = $conn->query($roles_query);
                             <td><?php echo htmlspecialchars($user['email']); ?></td>
                             <td><?php echo htmlspecialchars($user['full_name']); ?></td>
                             <td><?php echo htmlspecialchars($user['role_name']); ?></td>
-                             <td><?php echo htmlspecialchars($user['divisi_name']); ?></td>
+                            <td><?php echo htmlspecialchars($user['divisi_name']); ?></td>
                             <td><?php echo $user['is_active'] ? 'Ya' : 'Tidak'; ?></td>
                             <td>
                                 <a href="?page=edit_user&id=<?= $user['id'] ?>" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
-                                <a href="?page=hapus_user&=<?= $user['id'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                <a href="?page=hapus_user&id=<?= $user['id'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php endwhile; ?>
@@ -155,4 +155,3 @@ $roles_result = $conn->query($roles_query);
     </div>
 </div>
 
-<?php //$conn->close(); ?>

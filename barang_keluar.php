@@ -38,7 +38,7 @@ $result = $conn->query($query);
                             <th>No</th>
                             <th>Tanggal Keluar</th>
                             <th>Nama Barang</th>
-                            <th>Divisi</th>
+                            <th>Bagian</th>
                             <th>Jumlah</th>
                             <th>Satuan</th>
                         </tr>

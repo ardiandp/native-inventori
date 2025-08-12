@@ -24,7 +24,9 @@ $result = $conn->query($sql);
 <div class="container mt-4">
     <h2 class="mb-4">Laporan Pengadaan Barang</h2>
     
-   
+   <button type="button" class="btn btn-primary" onclick="exportPdf()">
+                <i class="fas fa-file-pdf"></i> Export PDF
+            </button>
     <table class="table table-bordered" width="100%" cellspacing="0">
         <thead class="table-dark">
             <tr>
@@ -60,9 +62,7 @@ $result = $conn->query($sql);
 </div>
 
  <div class="card-footer">
-            <button type="button" class="btn btn-primary" onclick="exportPdf()">
-                <i class="fas fa-file-pdf"></i> Export PDF
-            </button>
+            
         </div>
 
         <script>

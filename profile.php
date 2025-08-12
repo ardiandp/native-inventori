@@ -1,6 +1,7 @@
 <?php
 
-require_once 'config/database.php';
+//require_once 'config/database.php';
+$conn = new mysqli("153.92.15.58", "u284292842_winkur", "Database-2025", "u284292842_winkur");
 // Ambil data user yang login
 $user_id = $_SESSION['user_id'];
 $query = "SELECT u.*, r.name as role_name, d.nama_divisi 
@@ -17,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     
     // Jika ada password baru
     if (!empty($_POST['new_password'])) {
+        $conn = new mysqli("153.92.15.58", "u284292842_winkur", "Database-2025", "u284292842_winkur");
         $current_password = $_POST['current_password'];
         $new_password = $_POST['new_password'];
         $confirm_password = $_POST['confirm_password'];
@@ -102,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
                         </div>
                         
                         <div class="form-group">
-                            <label>Divisi</label>
+                            <label>Bagian</label>
                             <input type="text" class="form-control" 
                                    value="<?= !empty($user['nama_divisi']) ? htmlspecialchars($user['nama_divisi']) : '-' ?>" readonly>
                         </div>

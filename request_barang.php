@@ -84,7 +84,7 @@ $barang = $conn->query("SELECT * FROM barang ORDER BY nama_barang");
                 <div class="form-row">
                     <div class="col-md-3">
                         <select name="divisi_id" class="form-control" required>
-                            <option value="">-- Pilih Divisi --</option>
+                            <option value="">-- Pilih Bagian --</option>
                             <?php while ($d = $divisi->fetch_assoc()): ?>
                             <option value="<?= $d['id'] ?>"><?= htmlspecialchars($d['nama_divisi']) ?></option>
                             <?php endwhile; ?>
@@ -123,7 +123,7 @@ $barang = $conn->query("SELECT * FROM barang ORDER BY nama_barang");
                     <thead>
                         <tr>
                             <th width="5%">ID</th>
-                            <th>Divisi</th>
+                            <th>Bagian</th>
                             <th>Barang</th>
                             <th>Jumlah</th>
                             <th>Status</th>

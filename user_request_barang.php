@@ -121,7 +121,7 @@ $barang = $conn->query("SELECT * FROM barang ORDER BY nama_barang");
     <thead>
         <tr>
             <th width="5%">ID</th>
-            <th>Divisi</th>
+            <th>Bagian</th>
             <th>Barang</th>
             <th>Jumlah</th>
             <th>Status</th>

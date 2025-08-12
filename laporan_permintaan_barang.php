@@ -14,14 +14,16 @@ $request_result = $conn->query($sql);
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Laporan Permintaan Barang</h2>
-       
+         <button type="button" class="btn btn-primary" onclick="exportPdf()">
+                <i class="fas fa-file-pdf"></i> Export PDF
+            </button>
     </div>
     <div class="table-responsive">
         <table id="requestTable" class="table table-bordered table-striped" width="100%" cellspacing="0">
             <thead class="table-dark">
             <tr>
-                <th>ID</th>
-                <th>Divisi</th>
+                <th>No</th>
+                <th>Bagian</th>
                 <th>Barang</th>
                 <th>Jumlah</th>
                 <th>Status</th>
@@ -68,9 +70,7 @@ $request_result = $conn->query($sql);
         </table>
 
         <div class="card-footer">
-            <button type="button" class="btn btn-primary" onclick="exportPdf()">
-                <i class="fas fa-file-pdf"></i> Export PDF
-            </button>
+          
         </div>
 
         <script>

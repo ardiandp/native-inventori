@@ -16,7 +16,7 @@ if (!$result) {
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Divisi</h1>
+        <h1 class="h3 mb-0 text-gray-800">Data Bagian</h1>
         
     </div>
 
@@ -25,7 +25,7 @@ if (!$result) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="tambahDivisiModalLabel">Tambah Divisi Baru</h5>
+                    <h5 class="modal-title" id="tambahDivisiModalLabel">Tambah Bagian Baru</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -34,7 +34,7 @@ if (!$result) {
                     <form method="POST" action="">
                        
                         <div class="form-group">
-                            <label for="nama_divisi">Nama Divisi</label>
+                            <label for="nama_divisi">Nama Bagian</label>
                             <input type="text" class="form-control" id="nama_divisi" name="nama_divisi" required>
                         </div>                       
                         <button type="submit" name="tambah_divisi" class="btn btn-primary">Simpan</button>
@@ -57,7 +57,7 @@ if (!$result) {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nama Divisi</th>
+                            <th>Nama Bagian</th>
                             <th>Dibuat Pada</th>
                           
                             <th>Aksi</th>
@@ -79,7 +79,7 @@ if (!$result) {
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="editDivisiModalLabel<?= $divisi['id'] ?>">Edit Nama Divisi</h5>
+                                                <h5 class="modal-title" id="editDivisiModalLabel<?= $divisi['id'] ?>">Edit Nama Bagian</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -88,7 +88,7 @@ if (!$result) {
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <input type="hidden" name="id" value="<?= $divisi['id'] ?>">
-                                                        <label for="nama_divisi_<?= $divisi['id'] ?>">Nama Divisi</label>
+                                                        <label for="nama_divisi_<?= $divisi['id'] ?>">Nama Bagian</label>
                                                         <input type="text" class="form-control" id="nama_divisi_<?= $divisi['id'] ?>" name="nama_divisi" value="<?= htmlspecialchars($divisi['nama_divisi']) ?>" required>
                                                     </div>
                                                 </div>

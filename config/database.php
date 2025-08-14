@@ -1,18 +1,18 @@
 <?php
-/*
+
 $servername = "153.92.15.58";
 $username = "u284292842_winkur";
 $password = "Database-2025";
 $dbname = "u284292842_winkur";
-*/
-date_default_timezone_set('Asia/Jakarta');
 
+date_default_timezone_set('Asia/Jakarta');
+/*
 $servername = "127.0.0.1";
 $username = "root";
 $password = "";
 $dbname = "wininventori";
 // Create connection
-
+*/
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection

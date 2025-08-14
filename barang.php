@@ -34,7 +34,17 @@ if (isset($_GET['hapus'])) {
 }
 
 // Ambil data barang
-$query = "SELECT * FROM barang ORDER BY nama_barang ASC";
+$query = "SELECT
+    b.*,
+    COALESCE(SUM(bm.jumlah), 0) - COALESCE(SUM(bk.jumlah), 0) AS jml_real
+FROM
+    barang b
+LEFT JOIN
+    barang_masuk bm ON b.id = bm.barang_id
+LEFT JOIN
+    barang_keluar bk ON b.id = bk.barang_id
+GROUP BY
+    b.id, b.nama_barang, b.kategori";
 $result = $conn->query($query);
 ?>
 
@@ -87,6 +97,7 @@ $result = $conn->query($query);
                             <th>Nama Barang</th>
                             <th>Kategori</th>
                             <th>Stok Awal</th>
+                            <th width="10%">Stok Real</th>
                             <th>Satuan</th>
                             <th width="10%">Aksi</th>
                         </tr>
@@ -98,6 +109,9 @@ $result = $conn->query($query);
                             <td><?= htmlspecialchars($row['nama_barang']) ?></td>
                             <td><?= !empty($row['kategori']) ? htmlspecialchars($row['kategori']) : '-' ?></td>
                             <td class="text-right"><?= number_format($row['stok_awal'], 0, ',', '.') ?></td>
+                            <td class="text-right">
+                               <?php echo number_format($row['jml_real'], 0, ',', '.'); ?>
+                            </td>
                             <td><?= htmlspecialchars($row['satuan']) ?></td>
                             <td class="text-center">
                                 <a href="?page=barang_edit&id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">
